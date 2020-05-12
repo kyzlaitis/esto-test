@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\User as UserResource;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -23,8 +20,8 @@ class UserController extends Controller
     {
         $user = new User(
             [
-                'name' => $request['data.attributes.name'],
-                'email' => $request['data.attributes.email'],
+                'name'       => $request['data.attributes.name'],
+                'email'      => $request['data.attributes.email'],
                 'permission' => $request['data.attributes.permission'],
             ]
         );

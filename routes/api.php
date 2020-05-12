@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:api', 'user-admin'])->group(function () {
-    Route::post('/users', 'UserController@store');
-});
+Route::middleware(['auth:api', 'user-admin'])->group(
+    function () {
+        Route::post('/users', 'UserController@store');
+    }
+);
 
-Route::middleware(['auth:api'])->group(function () {
-    Route::post('/transactions', 'TransactionController@store');
-});
+Route::middleware(['auth:api'])->group(
+    function () {
+        Route::post('/transactions', 'TransactionController@store');
+    }
+);
 
 
 Route::get('/users/transactions', 'UserTransactionController@index');

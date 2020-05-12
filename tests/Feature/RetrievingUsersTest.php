@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Transaction;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class RetrievingUsersTest extends TestCase
@@ -16,12 +15,13 @@ class RetrievingUsersTest extends TestCase
     /** @test */
     public function anyone_can_rettrieve_10_last_users_with_debt_sum()
     {
+        factory(User::class, 20)->state('user')->create()->each(
+            function ($user) {
+                $user->transactions()->createMany(factory(Transaction::class, 20)->make()->toArray());
+            }
+        );
 
-        factory(User::class, 20)->state('user')->create()->each(function ($user) {
-            $user->transactions()->createMany(factory(Transaction::class, 20)->make()->toArray());
-        });
-
-        $response = $this->getJson('/api/users/transactions');
+        $response      = $this->getJson('/api/users/transactions');
         $decodedTopTen = $response->decodeResponseJson();
 
         $response->assertJsonCount(10);
@@ -31,7 +31,7 @@ class RetrievingUsersTest extends TestCase
                 '*' => [
                     'name',
                     'debitSum',
-                ]
+                ],
             ]
         );
     }

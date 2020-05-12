@@ -23,8 +23,8 @@ class UserCanCreateATransactionTest extends TestCase
                 'data' => [
                     'type'       => 'transactions',
                     'attributes' => [
-                        'amount'  => '100.2',
-                        'type'    => 'debit',
+                        'amount' => '100.2',
+                        'type'   => 'debit',
                     ],
                 ],
             ]

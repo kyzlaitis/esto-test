@@ -8,6 +8,7 @@ class StoreUserRequest extends FormRequest
 {
 
     protected $fieldPrefix = 'data.attributes.';
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,8 +26,6 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-
-
         return [
             $this->fieldPrefix . 'name'       => 'unique:users,name',
             $this->fieldPrefix . 'email'      => 'email:rfc',
@@ -37,9 +36,9 @@ class StoreUserRequest extends FormRequest
     public function attributes()
     {
         return [
-            $this->fieldPrefix . 'email' => 'email address',
+            $this->fieldPrefix . 'email'      => 'email address',
             $this->fieldPrefix . 'permission' => 'permission',
-            $this->fieldPrefix . 'name' => 'name',
+            $this->fieldPrefix . 'name'       => 'name',
         ];
     }
 }
