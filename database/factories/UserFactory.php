@@ -24,3 +24,16 @@ $factory->define(User::class, function (Faker $faker) {
         'permission' => true,
     ];
 });
+
+
+$factory->state(User::class, 'admin', function($faker) {
+    return [
+        'permission' => true,
+    ];
+});
+
+$factory->state(User::class, 'user', function($faker) {
+    return [
+        'permission' => false,
+    ];
+});

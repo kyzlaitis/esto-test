@@ -17,8 +17,6 @@ class TransactionController extends Controller
         $transaction->user()->associate(auth()->user());
         $transaction->save();
 
-
-
         return response()->json(new TransactionResource($transaction), 201);
     }
 }
