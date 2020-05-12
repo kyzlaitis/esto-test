@@ -3,10 +3,15 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class UserCanCreateATransaction extends TestCase
+class UserCanCreateATransactionTest extends TestCase
 {
+
+    use RefreshDatabase;
+
+
     /** @test */
     public function a_user_can_create_transaction()
     {
@@ -24,6 +29,7 @@ class UserCanCreateATransaction extends TestCase
                 ],
             ]
         );
+        $response->assertStatus(201);
 
         $storedTransactionResponse = $response->decodeResponseJson()['data']['attributes'];
 
@@ -31,12 +37,12 @@ class UserCanCreateATransaction extends TestCase
         $this->assertEquals('100.2', $storedTransactionResponse['amount']);
         $this->assertEquals('debit', $storedTransactionResponse['type']);
 
-        $response->assertStatus(201)->assertJson(
+        $response->assertJson(
             [
                 'data' => [
                     'type'       => 'transactions',
                     'attributes' => [
-                        'transaction_id' => $storedTransactionResponse->id,
+                        'transaction_id' => $storedTransactionResponse['transaction_id'],
                         'amount'         => $storedTransactionResponse['amount'],
                         'type'           => $storedTransactionResponse['type'],
                         'user_id'        => $storedTransactionResponse['user_id'],

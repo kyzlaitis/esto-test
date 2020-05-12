@@ -30,4 +30,9 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
     ];
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
 }
